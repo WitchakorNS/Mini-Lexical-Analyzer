@@ -1,0 +1,17 @@
+// ผู้รับผิดชอบ: เตย — ตัวอย่างเพิ่มเติมให้ครบทุกชนิด รวมวงเล็บ Integer และ while
+read score;
+score = 0;
+while (score <= 123) do
+    if score == 10 then
+        print "Hello World";
+        print newline;
+    else
+        score = score + 2 * 3 / 1 - 0;
+    endif
+    score++;
+endwhile
+score--;
+score > 0;
+score < 12345;
+score >= 0;
+print "";

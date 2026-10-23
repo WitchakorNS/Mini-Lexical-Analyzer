@@ -1,0 +1,14 @@
+%% ผู้รับผิดชอบ: โรมัน — DFA ของ Integer [0-9]+
+%% alphabet: อักขระทั้งหมด; other คืออักขระที่ไม่ใช่เลข ASCII 0-9
+stateDiagram-v2
+    direction LR
+    [*] --> q0
+    state "q0: start" as q0
+    state "q1: accept" as q1
+    state "qd: reject" as qd
+    q0 --> q1: 0-9
+    q0 --> qd: other
+    q1 --> q1: 0-9
+    q1 --> qd: other
+    qd --> qd: any
+    q1 --> [*]: end of lexeme

@@ -1,0 +1,2 @@
+A @ B
+print "This line must not be processed";

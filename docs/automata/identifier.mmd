@@ -1,0 +1,14 @@
+%% ผู้รับผิดชอบ: แฟนต้า — DFA ตรวจ lexeme ของ Identifier ก่อนแยก Keyword
+%% alphabet: อักขระทั้งหมด; other หมายถึงทุกอักขระนอกกลุ่มใน transition อื่น
+stateDiagram-v2
+    direction LR
+    [*] --> q0
+    state "q0: start" as q0
+    state "q1: accept" as q1
+    state "qd: reject" as qd
+    q0 --> q1: A-Z, a-z
+    q0 --> qd: other
+    q1 --> q1: A-Z, a-z, 0-9
+    q1 --> qd: other
+    qd --> qd: any
+    q1 --> [*]: end of lexeme

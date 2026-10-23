@@ -5,6 +5,71 @@ ProLang Hod Hod
 
 ดูหน้าที่ โค้ด รายงาน และการทดสอบของสมาชิกใน [การแบ่งงาน](TEAM_ASSIGNMENTS.md)
 
+## ติดตั้งและรันโปรแกรม
+
+ผู้รับผิดชอบ: **เตย** — ใช้ Python 3.9 ขึ้นไป เปิด Terminal ที่รากโปรเจกต์
+
+```bash
+python -m venv .venv
+```
+
+เปิด environment บน Windows PowerShell:
+
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+หรือบน Linux / WSL / macOS:
+
+```bash
+source .venv/bin/activate
+```
+
+จากนั้นติดตั้งและรัน:
+
+```bash
+python -m pip install -r requirements.txt
+python main.py inputs/sample1.txt
+python main.py inputs/sample2.txt
+python main.py inputs/all_tokens.txt
+python main.py inputs/lexical_error.txt
+python -m pytest -q
+```
+
+ใช้ `python3` แทน `python` ได้ตามเครื่อง รับไฟล์ `.txt` แบบ UTF-8 หรือ UTF-8 BOM
+ถ้า path มีช่องว่าง ให้ครอบด้วย double quote เช่น `python main.py "inputs/my input.txt"`
+โปรแกรมคืน exit code `0` เมื่อสำเร็จ, `1` เมื่อพบ lexical error, `2` เมื่อ argument หรือไฟล์มีปัญหา
+
+`sample1.txt` และ `sample2.txt` ตรงกับตัวอย่างใน PDF; `all_tokens.txt` เพิ่มตัวอย่างให้ครบทุก token
+ส่วน `lexical_error.txt` ต้องแสดงเพียง:
+
+```text
+new identifier: A
+Lexical error: unexpected character @
+```
+
+การรันแต่ละครั้งเริ่ม Symbol Table ใหม่ และเก็บเฉพาะ Identifier โดยแยกตัวพิมพ์เล็ก/ใหญ่
+String เก็บ quote และข้อความเดิม ไม่แปล escape sequence; ไม่รองรับทศนิยมหรือ String หลายบรรทัด
+Comment จบที่ `*/` แรกและไม่รองรับ nested comment
+ข้อตกลงเพิ่มเติม: `1score` เป็น lexical error ที่ `1`; String/Block Comment ที่ไม่ปิดเป็น error ที่อักขระเปิด
+ข้อความ error คงรูปแบบโจทย์ ส่วนเหตุผลและตำแหน่งเก็บไว้ใน `LexicalError` สำหรับตรวจสอบในโค้ด
+
+## โครงสร้างและเจ้าของโค้ด
+
+| ไฟล์ / ส่วน | ผู้รับผิดชอบตามแผน |
+|---|---|
+| `src/lexer.py` — Operators, Parentheses, Semicolon | ปาม |
+| `src/lexer.py` — Keywords, Identifier | แฟนต้า |
+| `src/lexer.py` — Integer, String | โรมัน |
+| `src/lexer.py` — Comments, Whitespace, Lexical Error | หยก |
+| `src/symbol_table.py`, `src/output_formatter.py` | พอต |
+| `main.py`, `src/__init__.py`, dependencies, `inputs/` และการรวม | เตย |
+| `test/test_lexer.py` | ทุกคนตาม comment และ prefix ของ test; เตยรวม |
+
+คอมเมนต์ภาษาไทยในแต่ละส่วนอธิบายกฎ เหตุผล และเจ้าของตามแผนแบ่งงาน
+ดูรายละเอียด Regex, DFA และผลทดสอบใน [รายงาน](docs/report.md)
+และดูวิธีประกาศกฎเพิ่มเติมจาก [เอกสาร SLY](https://sly.readthedocs.io/en/latest/sly.html)
+
 ## Branch ของสมาชิก
 
 | สมาชิก | Branch | คำสั่งเข้า Branch ครั้งแรกหลัง Clone |

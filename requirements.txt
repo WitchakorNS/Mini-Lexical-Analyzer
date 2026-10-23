@@ -1,0 +1,3 @@
+# ผู้รับผิดชอบ: เตย — SLY สำหรับ Lexer และ pytest สำหรับ automated test
+sly==0.5
+pytest>=8.0,<10.0

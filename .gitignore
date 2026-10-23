@@ -1,0 +1,5 @@
+# ผู้รับผิดชอบ: เตย — ไม่เก็บ environment และไฟล์ชั่วคราวของ Python ลง Git
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
