@@ -1,8 +1,8 @@
-"""ผู้รับผิดชอบ: พอต — จัดเก็บ Identifier และตรวจชื่อซ้ำโดยแยกตัวพิมพ์เล็ก/ใหญ่."""
+"""จัดเก็บ Identifier และตรวจชื่อซ้ำโดยแยกตัวพิมพ์เล็ก/ใหญ่."""
 
 
 class SymbolTable:
-    # ผู้รับผิดชอบ: พอต — dict ตรวจสมาชิกเฉลี่ย O(1) และเก็บลำดับที่พบครั้งแรก
+    # dict ตรวจสมาชิกเฉลี่ย O(1) และเก็บลำดับที่พบครั้งแรก
     def __init__(self):
         self._identifiers: dict[str, None] = {}
 
@@ -13,7 +13,7 @@ class SymbolTable:
         self._identifiers[identifier] = None
         return True
 
-    # ผู้รับผิดชอบ: พอต — เปิดให้ตรวจข้อมูลโดยไม่ต้องแก้ dict ภายในโดยตรง
+    # เปิดให้ตรวจข้อมูลโดยไม่ต้องแก้ dict ภายในโดยตรง
     @property
     def identifiers(self) -> tuple[str, ...]:
         return tuple(self._identifiers)

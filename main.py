@@ -1,4 +1,4 @@
-"""ผู้รับผิดชอบ: เตย — อ่านไฟล์และเชื่อม Lexer, Symbol Table และตัวแสดงผล."""
+"""อ่านไฟล์และเชื่อม Lexer, Symbol Table และตัวแสดงผล."""
 
 import argparse
 from pathlib import Path
@@ -10,7 +10,7 @@ from src.output_formatter import format_error, format_token
 from src.symbol_table import SymbolTable
 
 
-# ผู้รับผิดชอบ: เตย — วิเคราะห์ทีละ token เพื่อเก็บผลก่อน error และไม่อ่าน token ถัดไป
+# วิเคราะห์ทีละ token เพื่อเก็บผลก่อน error และไม่อ่าน token ถัดไป
 def analyze(source: str, output: Optional[TextIO] = None) -> SymbolTable:
     """แสดงผลตามลำดับที่พบ และส่ง exception ให้ผู้เรียกเมื่อเกิด lexical error."""
     if output is None:
@@ -21,7 +21,7 @@ def analyze(source: str, output: Optional[TextIO] = None) -> SymbolTable:
     return symbol_table
 
 
-# ผู้รับผิดชอบ: เตย — รับ path จาก command line และแยก error ของไฟล์กับ error ของภาษา
+# รับ path จาก command line และแยก error ของไฟล์กับ error ของภาษา
 def main(argv: Optional[Sequence[str]] = None) -> int:
     parser = argparse.ArgumentParser(description="Mini Lexical Analyzer ด้วย Python และ SLY")
     parser.add_argument("source", type=Path, help="เส้นทางไฟล์ source code .txt (UTF-8)")
@@ -44,6 +44,6 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     return 0
 
 
-# ผู้รับผิดชอบ: เตย — การ import เพื่อทดสอบจะไม่ทำให้โปรแกรม CLI เริ่มทำงาน
+# การ import เพื่อทดสอบจะไม่ทำให้โปรแกรม CLI เริ่มทำงาน
 if __name__ == "__main__":
     raise SystemExit(main())

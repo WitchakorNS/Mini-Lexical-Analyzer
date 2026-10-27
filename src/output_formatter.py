@@ -1,4 +1,4 @@
-"""ผู้รับผิดชอบ: พอต — แปลง token/error เป็นข้อความตามตัวอย่างในเอกสารโจทย์."""
+"""แปลง token/error เป็นข้อความตามตัวอย่างในเอกสารโจทย์."""
 
 from sly.lex import Token
 
@@ -6,7 +6,7 @@ from .lexer import LexicalError
 from .symbol_table import SymbolTable
 
 
-# ผู้รับผิดชอบ: พอต — รวม token ของ operator/keyword เพื่อใช้ป้ายแสดงผลเดียวกัน
+# รวม token ของ operator/keyword เพื่อใช้ป้ายแสดงผลเดียวกัน
 OPERATOR_TYPES = frozenset({
     "PLUS", "MINUS", "TIMES", "DIVIDE", "ASSIGN", "GT", "GE", "LT", "LE",
     "EQ", "INCREMENT", "DECREMENT",
@@ -25,7 +25,7 @@ TOKEN_LABELS = {
 }
 
 
-# ผู้รับผิดชอบ: พอต — เพิ่มเฉพาะ IDENTIFIER; ชนิดอื่นไม่เปลี่ยน Symbol Table
+# เพิ่มเฉพาะ IDENTIFIER; ชนิดอื่นไม่เปลี่ยน Symbol Table
 def format_token(token: Token, symbol_table: SymbolTable) -> str:
     if token.type == "IDENTIFIER":
         if symbol_table.add(token.value):
@@ -34,6 +34,6 @@ def format_token(token: Token, symbol_table: SymbolTable) -> str:
     return f"{TOKEN_LABELS[token.type]}: {token.value}"
 
 
-# ผู้รับผิดชอบ: พอต ร่วมกับหยก — ใช้รูปแบบ error เดียวกันทุกจุด
+# ใช้รูปแบบ error เดียวกันทุกจุด
 def format_error(error: LexicalError) -> str:
     return str(error)
