@@ -1,8 +1,3 @@
-"""Tests สำหรับ Mini Lexical Analyzer.
-
-รันจากรากโปรเจกต์ด้วย python -m pytest -q
-"""
-
 from io import StringIO
 from pathlib import Path
 import subprocess
@@ -16,7 +11,6 @@ from src.output_formatter import format_error, format_token
 from src.symbol_table import SymbolTable
 
 
-# helpers ใช้ร่วมกันโดยตรวจทั้งชนิด token และ lexeme ต้นฉบับ
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -30,7 +24,6 @@ def render(source):
     return output.getvalue(), table
 
 
-# Operators ครบ 12 ตัว วงเล็บ semicolon และกฎที่ซ้อนกัน
 @pytest.mark.parametrize("lexeme,kind", [
     ("+", "PLUS"), ("-", "MINUS"), ("*", "TIMES"), ("/", "DIVIDE"),
     ("=", "ASSIGN"), (">", "GT"), (">=", "GE"), ("<", "LT"), ("<=", "LE"),
@@ -54,7 +47,6 @@ def test_delimiters_adjacent():
     ]
 
 
-# Keyword แบบตรงคำและตรง case เท่านั้น
 @pytest.mark.parametrize("keyword,kind", [
     ("if", "IF"), ("then", "THEN"), ("else", "ELSE"), ("endif", "ENDIF"),
     ("while", "WHILE"), ("do", "DO"), ("endwhile", "ENDWHILE"),
@@ -84,7 +76,6 @@ def test_identifier_rejected(source, character):
     assert caught.value.character == character
 
 
-# Integer เก็บค่าข้อความเดิมและไม่รวมเครื่องหมายลบ
 @pytest.mark.parametrize("value", ["0", "123", "12345", "001", "9" * 5000])
 def test_integer_accepted(value):
     assert tokenize(value) == [("INTEGER", value)]
@@ -117,12 +108,10 @@ def test_string_unterminated_or_multiline(source):
 
 
 def test_string_backslash_does_not_escape_quote():
-    # โจทย์ยังไม่รองรับ escape: quote หลัง backslash จบ String ตามปกติ
     source = '"a' + "\\" + '" B'
     assert tokenize(source) == [("STRING", source[:-2]), ("IDENTIFIER", "B")]
 
 
-# Comment ไม่ผลิต token และไม่ตรวจอักขระภายในเป็น error
 @pytest.mark.parametrize("comment", [
     "// @ _ \" ignored", "/* @ _ \" ignored */", "/* first\nsecond\nthird */",
     "/**/", "/* one */ /* two */", "/* outer /* no nesting */",
@@ -174,7 +163,6 @@ def test_lexical_error_stops_generator_immediately():
     assert list(stream) == []
 
 
-# เก็บเฉพาะ Identifier ไม่ซ้ำ โดยแยก case และคงลำดับที่พบ
 def test_symbol_table_new_duplicate_and_case():
     table = SymbolTable()
     assert table.add("A") is True
@@ -226,7 +214,6 @@ def test_output_no_symbol_after_error():
     assert table.identifiers == ("A",)
 
 
-# Golden outputs จาก PDF หน้า 8–9 ไม่สร้าง expected ด้วย Lexer
 SAMPLE1_OUTPUT = '''new identifier: A
 operator: +
 new identifier: B
